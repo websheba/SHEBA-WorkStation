@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formatted Text Generator</title>
+</head>
+<body>
+    <div id="save">
+        <span><s>SSSSSS</s></span>
+        <p contenteditable="true"><i>EDITED : 5 </i></p>
+        <p contenteditable="true"><b>Bolded Bangla</b></p>
+        <p contenteditable="true">Bangla</p>
+    </div>
+
+    <button id="share">Save And Share</button>
+
+    <script>
+        document.getElementById('share').addEventListener('click', async () => {
+            const divContent = document.getElementById('save').textContent;
+            await fetch('https://update.bqb.workers.dev/', {
+                method: 'POST',
+                body: divContent,
+            });
+            alert('Formatted text sent to your Telegram chat!');
+        });
+    </script>
+</body>
+</html>

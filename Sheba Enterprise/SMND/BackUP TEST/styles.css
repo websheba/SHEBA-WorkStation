@@ -1,0 +1,123 @@
+
+    /* RESULT SECTION */
+.result  {
+    padding: 15px 10px; /* 10px top and bottom padding, 0px left and right padding */
+
+      position: relative;
+    }
+
+    /* Create blood-colored bars using pseudo-elements */
+    .result ::before,
+    .result ::after {
+      content: ""; /* Ensure no content is added */
+      position: absolute;
+      width: 100%;
+      height: 10px;
+      background-color: #CE0000; /* Blood red color */
+    }
+
+    /* Position the top bar */
+    .result ::before {
+      top: 0;
+      left: 0;
+    }
+
+    /* Position the bottom bar */
+    .result ::after {
+      bottom: 0;
+      left: 0;
+    }
+
+
+
+
+body {
+  font-family: sans-serif;
+  background-color: #fff5f5; /* Lighter shade of red for background */
+  color: #333;
+  width: 100%;
+}
+
+h1 {
+  color: #d50000; /* Deep red for heading */
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+
+input[type="date"],
+button {
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+button {
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #d50000; /* Deep red for button */
+  color: #fff;
+  cursor: pointer;
+}
+
+
+/* Additional styling for blood-themed accents */
+input[type="text"]:focus,
+button:hover {
+  border-color: #d50000; /* Highlight with deep red */
+}
+
+
+
+.loader {
+  /* Add your preferred loader animation styles here */
+  border: 4px solid #f3f3f3; /* Light grey */
+  border-top: 4px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+
+
+
+body::before {
+/* WATERMARK STARTS */
+  content: "";
+  background-image: url("./blood-watermark.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 30% 30%;
+  background-attachment: fixed;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; 
+/* WATERMARK ENDS */
+}

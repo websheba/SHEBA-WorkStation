@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="./stylex.css">
+<link rel="icon" type="image/png" href="./../../fav.svg">
+<title>সবাই মিলে নতুনত্ব ধরি | Blood Group Test Information</title>
+
+</head>
+
+
+<body>
+<div class="body">
+
+		<a href="https://docs.google.com/forms/d/e/1FAIpQLSdin3YcwcF5c20YNcFS4LFHWvkHlvfBW0qzg3-cG9c0KjRP0w/viewform?usp=sf_link">
+			<div class="header">
+			</div>
+		</a>
+
+<div class="area">
+
+		<div class="postarea"><div class="input_area">  
+		<h1>Blood Group Test Information</h1>
+<br/>
+		<label for="phone">Phone Number:</label>
+<br/>
+		<input type="text" id="phone" name="phone" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="11">
+<br>
+		<label for="birth">Birth Date:</label>
+<br/>
+ 		<input type="date" id="birth" name="birth"><br><br>
+		<button class="fahim" onclick="fetchData()">Search</button></div>
+		</div>
+
+
+	<div id="result">
+		<div class="loader" style="display:none;"></div>
+		</div>
+	</div>
+
+
+<script>
+  const SMND = "/SMND/"; // Declare SMND as a constant
+
+  function fetchData() {
+    const phone = document.getElementById("phone").value;
+    const birth = document.getElementById("birth").value;
+
+    const resultDiv = document.getElementById("result");
+    const loader = document.querySelector(".loader");
+
+    if (phone === "" || birth === "") {
+      // Show "Click on The Chat button for Help"
+      resultDiv.innerHTML = "<div class=\"result\"> <button onclick=\"window.location.reload();\">Restart</button> <br/>  <b> নিশ্চই কিছু একটা ভুল হয়েছে। </b> অথবা, আপনার দেয়া তথ্যগুলো সঠিক নয়।<br/><br/> না বুঝলে অনুগ্রহ করে নিচের চ্যাট বাটনে ক্লিক করে আমাদের সাথে যোগাযোগ করুন অথবা আমাদের <a href=" + SMND + ">হোমপেজে ভিজিট করুন</a>। ধন্যবাদ।</div><style> .input_area {display:none;}</style>";
+      return; // Exit the function if no data is provided
+    }
+    // Show loader
+    loader.style.display = "block";
+
+    const apiUrl = "https://script.google.com/macros/s/AKfycbw2Jc58Cmp3lAtD0-9NGZbGJKDL2JAnXELlAydzKup2RR9kpJ0NctJUcEGcmOqPuCO2HQ/exec"; // Replace with your deployed API URL
+
+    const formattedBirthDate = new Date(birth).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    });
+
+    const params = new URLSearchParams({ phone, birth: formattedBirthDate });
+
+    fetch(`${apiUrl}?${params}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.statusText); // Handle non-200 status codes
+        }
+
+        return response.text(); // Use response.text() to get a string
+      })
+      .then(text => {
+        if (text === "No Records Found") {
+          // Handle the "No Records Found" message
+          resultDiv.innerHTML = "<span class=\"result\"><button onclick=\"window.location.reload();\">Restart</button><br/><b>আপনার তথ্য আমাদের ডেটাবেজে খুঁজে পাওয়া যায় নি।</b><i> অথবা, আপনার দেয়া তথ্যগুলো সঠিক নয়।<br/><br/>নিচের চ্যাট বাটনে ক্লিক করে আমাদের সাথে যোগাযোগ করুন </i> । <a href=" + SMND + ">অন্যথায় আমাদের, হোমপেজে ভিজিট করুন</a>। ধন্যবাদ।</span><style> .input_area {display:none;}</style>";
+        } else {
+          const data = JSON.parse(text); // Parse the JSON response
+
+          if (data.hasOwnProperty("donor")) {
+      // Get individual date components:
+      const date = new Date(data.birth);
+      const dayName = date.toLocaleString("bn-BD", { weekday: "long" });
+      const monthName = date.toLocaleString("bn-BD", { month: "long" });
+      const dayString = date.toLocaleString("bn-BD", { day: "2-digit" });
+      const yearString = date.toLocaleString("bn-BD", { year: "numeric" });
+
+      // Format the date:
+      const bengaliDigitMap = {
+      "0": "০",
+      "1": "১",
+      "2": "২",
+      "3": "৩",
+      "4": "৪",
+      "5": "৫",
+      "6": "৬",
+      "7": "৭",
+      "8": "৮",
+      "9": "৯",
+    };
+        const phone = data.phone;
+        const bengaliPhone = [...phone].map((digit) => bengaliDigitMap[digit]).join("");
+
+      const formattedDate = `${dayName}, ${dayString}, ${monthName}, ${yearString}ইং`;
+
+resultDiv.innerHTML = `
+               
+<table class\"postarea\">
+  <tr>
+    <th><a class=\"printbutton\" href=\"#\" onclick=\"window.print();return false;\"><button>🖨️ Print Card</button></a></th></th></th>
+    <th>    <th><font class=\"nuzhat\"> প্রিন্ট করার সময় ফোন  নাম্বার দেখানঃ</font></th> </th><th class=\"tania\"><label class=\"switch\">
+  <input type=\"checkbox\" onclick=\"nuzhat()\" checked>
+  <span class=\"slider round\"></span>
+</label></th>
+  </tr>
+</table>
+<div class=\"anjuman\"><div  id=\"breakup\"><h1 class=\"safi\">ব্লাড গ্রুপিং এর রিপোর্টঃ</h1>
+
+<style>.fahim {display:none;}</style>
+<br/>
+
+<table>
+  <tr>
+    <th><b>নামঃ</b></th>
+    <th></th>
+    <th>রক্তের গ্রুপঃ</th>
+  </tr>
+  <tr>
+    <td valign=\"top\" style=\"font-weight:bold;font-size:18px\"> ${data.donor} </td>
+    <th></th>
+    <td><span class=\"safi\">${data.group}</span></td>
+  </tr>
+  <tr>
+    <td><b>লিঙ্গঃ</b></td>
+    <td><b> জন্মদিনঃ </b></td>
+  </tr>
+
+
+  <tr>
+    <td>${data.gender}</td>
+
+    <td><font style=\"width:250px"\>${formattedDate}</font></td>
+  </tr>
+
+</table>
+              <br>
+<span id=\"mahi\">              <b> ফোন নাম্বারঃ </b><a style=\"color: #CE0000; text-decoration: none; font-weight: bold;\" href=\"tel:+88${data.phone}\">${bengaliPhone}</a><br/></span></div>
+
+</div>
+            `;
+          } else {
+            // Handle other cases where donor information is not present
+            resultDiv.innerHTML = "Error: Donor information not found in the response.";
+          }
+        }
+      })
+      .catch(error => {
+        loader.style.display = "none";
+        console.error("Error fetching data:", error);
+      });
+  }
+  </script>
+
+
+
+
+
+<script>
+function nuzhat() {
+  var x = document.getElementById("mahi");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+
+
+
+<div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Messenger Chat Plugin Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Chat Plugin code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "110233213827437");
+      chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v18.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+
+
+</body>
+</html>

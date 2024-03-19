@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en_US">
+<head> <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="icon" type="image/png" href="https://85b76525.sheba.pages.dev/fav.svg"/>
+<title>Print Photos</title>
+ <style>
+
+.paste {
+align-self: center;
+background-color: #fff;
+background-image: none;
+background-position: 0 90%;
+background-repeat: repeat no-repeat;
+background-size: 4px 3px;
+border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+border-style: inherit;
+border-width: 2px;
+box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+box-sizing: border-box;
+color: #000000;
+cursor: pointer;
+display: inline-block;
+font-family: Neucha, sans-serif;
+font-size: 1rem;
+line-height: 23px;
+outline: 0;
+padding: .75rem;
+text-decoration: none;
+transition: all 235ms ease-in-out;
+border-bottom-left-radius: 15px 255px;
+border-bottom-right-radius: 225px 15px;
+border-top-left-radius: 255px 15px;
+border-top-right-radius: 15px 225px;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation
+}.paste:hover {
+box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+transform: translate3d(0, 2px, 0)
+
+}.paste:focus {
+box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px
+}.upload {
+appearance: none;
+background-color: #2ea44f;
+border: 1px solid rgba(27, 31, 35, .15);
+border-radius: 6px;
+box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+box-sizing: border-box;
+color: #fff;
+cursor: pointer;
+display: inline-block;
+font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+font-size: 14px;
+font-weight: 600;
+line-height: 20px;
+padding: 6px 16px;
+position: relative;
+text-align: center;
+text-decoration: none;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+vertical-align: middle;
+white-space: nowrap
+}.upload:focus:not(:focus-visible):not(.focus-visible) {
+box-shadow: none;
+outline: 0
+}.upload:hover {
+background-color: #2c974b
+}.upload:focus {
+box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+outline: 0
+}.upload:disabled {
+background-color: #94d3a2;
+border-color: rgba(27, 31, 35, .1);
+color: rgba(255, 255, 255, .8);
+cursor: default
+}.upload:active {
+background-color: #298e46;
+box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset
+}.shortcut {
+box-shadow: rgba(0, 0, 0, .05) 0 6px 24px 0, rgba(0, 0, 0, .08) 0 0 0 1px;
+padding: 5px;
+margin: 0 5px;
+border-radius: 4px
+}label {
+display: block;
+margin-bottom: 5px
+}option,
+select {
+width: 60%;
+padding: 10px;
+border: 1px solid #4caf50;
+border-radius: 10px;
+box-sizing: border-box;
+margin-bottom: 5px
+}input[type=file],
+input[type=number] {
+width: 200px;
+padding: 15px;
+border: 1px solid #ccc;
+border-radius: 5px;
+box-sizing: border-box;
+margin-bottom: 10px
+}button {
+background-color: #4caf50;
+color: #fff;
+padding: 10px 20px;
+border: none;
+border-radius: 3px;
+cursor: pointer
+}button:hover {
+background-color: #45a049
+}
+
+body {
+font-family: Arial, sans-serif;
+background-color: #fff;
+width: 210mm;
+margin: 0 auto
+}@media print {
+body>:not(#preview) {
+    page-break-inside: auto;
+    display: none
+}
+}@-webkit-keyframes come-in {
+0% {
+-webkit-transform: translatey(100px);
+transform: translatey(100px);
+opacity: 0
+}30% {
+-webkit-transform: translateX(-50px) scale(.4);
+transform: translateX(-50px) scale(.4)
+}70% {
+-webkit-transform: translateX(0) scale(1.2);
+transform: translateX(0) scale(1.2)
+}100% {
+-webkit-transform: translatey(0) scale(1);
+transform: translatey(0) scale(1);
+opacity: 1
+}
+}@keyframes come-in {
+0% {
+-webkit-transform: translatey(100px);
+transform: translatey(100px);
+opacity: 0
+}30% {
+-webkit-transform: translateX(-50px) scale(.4);
+transform: translateX(-50px) scale(.4)
+}70% {
+-webkit-transform: translateX(0) scale(1.2);
+transform: translateX(0) scale(1.2)
+}100% {
+-webkit-transform: translatey(0) scale(1);
+transform: translatey(0) scale(1);
+opacity: 1
+}
+}* {
+margin: 0;
+padding: 0
+}body,
+html {
+background: #eaedf2;
+font-family: Roboto, sans-serif
+}.floating-container {
+position: fixed;
+width: 100px;
+height: 100px;
+bottom: 0;
+right: 0;
+margin: 35px 25px
+}.floating-container:hover {
+height: 300px
+}.floating-container:hover .floating-button {
+box-shadow: 0 10px 25px rgba(44, 179, 240, .6);
+-webkit-transform: translatey(5px);
+transform: translatey(5px);
+-webkit-transition: all .3s;
+transition: all .3s
+}.floating-container:hover .element-container .float-element:nth-child(1) {
+-webkit-animation: come-in .4s forwards .2s;
+animation: come-in .4s forwards .2s
+}.floating-container:hover .element-container .float-element:nth-child(2) {
+-webkit-animation: come-in .4s forwards .4s;
+animation: come-in .4s forwards .4s
+}.floating-container:hover .element-container .float-element:nth-child(3) {
+-webkit-animation: come-in .4s forwards .6s;
+animation: come-in .4s forwards .6s
+}.floating-container .floating-button {
+position: absolute;
+width: 60px;
+height: 60px;
+background: #2ea44f;
+bottom: 0;
+border-radius: 50%;
+left: 0;
+right: 0;
+margin: auto;
+color: #fff;
+line-height: 65px;
+text-align: center;
+font-size: 23px;
+z-index: 100;
+box-shadow: 0 10px 25px -5px rgba(44, 179, 240, .6);
+cursor: pointer;
+-webkit-transition: all .3s;
+transition: all .3s
+}.floating-container .float-element {
+position: relative;
+display: block;
+border-radius: 50%;
+width: 55px;
+height: 55px;
+margin: 15px auto;
+color: #fff;
+font-weight: 500;
+text-align: center;
+line-height: 55px;
+z-index: 0;
+opacity: 0;
+-webkit-transform: translateY(100px);
+transform: translateY(100px)
+}.floating-container .float-element .material-icons {
+vertical-align: middle;
+font-size: 16px
+}.floating-container .float-element:nth-child(1) {
+background: #4caf50;
+box-shadow: 0 20px 20px -10px rgba(66, 165, 245, .5)
+}.floating-container .float-element:nth-child(2) {
+background: #4caf50;
+box-shadow: 0 20px 20px -10px rgba(76, 175, 80, .5)
+}.floating-container .float-element:nth-child(3) {
+background: #ff9800;
+box-shadow: 0 20px 20px -10px rgba(255, 152, 0, .5)
+}.material-symbols-outlined {
+font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
+}
+
+table {
+padding: 20px;
+border-radius: 20px;
+background-color: #fff;
+box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+font-family: arial, sans-serif;
+border-collapse: collapse;
+width: 85%;
+margin: 5px auto
+}th {
+text-align: left;
+padding: 10px;
+padding-left: 30px;
+padding-bottom: 20px;
+padding-top: 25px;
+}td {
+text-align: left;
+padding: 8px
+}tr:nth-child(even) {
+background-color: #ddd
+}
+.footer {
+position: fixed;
+bottom: 0; /* Positions the footer at the bottom of the page. */
+left: 0; /* Aligns the footer to the left. */
+padding: 10px; /* Adds some padding to the footer. */
+background-color: #ffffff; /* Optional background color for the footer. */
+color: #000000; /* Text color for the footer. */
+border-radius: 25px;
+margin: 30px;animation: footer 2s ease forwards;}
+@keyframes footer {
+from { opacity: 0; }
+to { opacity: 1; }
+}</style></head>
+<body id="dropZone">
+<table>
+<tr>
+<th valign="top" align="right"><label for="paste">📋 Add an image from Clipboard:</label><br/><button id="paste"
+name="paste" title="কি বোর্ডের Control + V চাপুন (অবশ্যই ছবি কপি করা থাকতে হবে)" class="paste" onclick="showClipboardImage()">Paste An
+Image (<b>Ctrl + V</b>)</button><br/><br/><label for="picture">📷 Add Multiple Photos:</label><label for="picture"
+class="upload">Click to Add Photos</label><input type="file" id="picture" name="picture" accept="image/*"
+onclick='this.value=""' style="display:none" multiple="multiple"><br/><br/><label for="print">Print on A4
+Page</label><button id="print" type="submit">Save to Print 🖨️</button></th>
+<th valign="top"><label for="width">Image Width (mm):</label><input type="number" id="width"
+value="40"><br/><label for="height">Image Height (mm):</label><input type="number" id="height"
+value="50"><br/><button type="button" id="switchButton" title="কি-বোর্ডের Left Shift Key ব্যবহার করুন">🔃 Swap Sizes</button><br/><br/><label
+for="quantity">Total Copies📄:</label>
+<select name="quantity" id="quantity" title="কি-বোর্ডের Up Arrow এবং Down Arrow ব্যবহার করুন">
+<option value="1">📄1 Copy (default)</option>
+<script>
+for (let i = 2; i <= 84; i++) {
+const option = document.createElement("option");
+option.value = i;
+option.text = "📄" + i + " Copy";
+document.getElementById("quantity").appendChild(option);
+}
+
+// Listen for keydown events
+window.addEventListener('keydown', function(event) {
+const select = document.getElementById("quantity");
+switch (event.key) {
+case "ArrowLeft":
+// Select previous option
+if (select.selectedIndex > 0) {
+select.selectedIndex--;
+}
+break;
+case "ArrowRight":
+// Select next option
+if (select.selectedIndex < select.options.length - 1) {
+select.selectedIndex++;
+}
+break;
+}
+});
+</script>
+</select>
+
+</select></th>
+</tr>
+</table><br/><br/>
+<ul style="page-break-after: always;" title="Click To Print 🖨️" id="preview" onclick="return window.print(),!1">
+
+<style>ul {
+display: flow;
+list-style-type: auto;
+margin: 3.5mm;}
+
+li {
+padding: 1px;
+margin: auto;
+display: inline-block
+}
+
+img {page-break-inside: avoid;
+border-radius: 2px;
+border: 1px solid #000;
+box-shadow: 0 0 2px 1px rgba(0, 140, 186, .5) hover
+}</style>
+
+</ul><br/>
+<p class="footer" id="bookmark-reminder" style="display: none;">📌 Press<span class="shortcut">Ctrl+D</span>to bookmark this page</p><br/>
+<script>const picture = document.getElementById('picture');
+const preview = document.getElementById('preview');
+const quantityInput = document.getElementById('quantity');
+const widthInput = document.getElementById('width');
+const heightInput = document.getElementById('height');
+const switchButton = document.getElementById('switchButton');switchButton.addEventListener('click', () => {
+const temp = widthInput.value;
+widthInput.value = heightInput.value;
+heightInput.value = temp;
+});picture.addEventListener('change', (event) => {
+const files = event.target.files;for (let i = 0; i < files.length; i++) {
+const file = files[i];if (!file.type.startsWith('image/')) {
+alert('Please select only image files.');
+continue;
+}const reader = new FileReader();
+reader.addEventListener('load', () => {
+const quantity = parseInt(quantityInput.value);
+const width = parseInt(widthInput.value);
+const height = parseInt(heightInput.value);for (let j = 0; j < quantity; j++) {
+const listItem = document.createElement('li');
+const image = document.createElement('img');
+image.src = reader.result;
+image.style.width = `${width - 1}mm`;
+image.style.height = `${height - 1}mm`;listItem.appendChild(image);
+preview.appendChild(listItem);
+}
+});reader.onerror = (error) => {
+console.error('Error reading image:', error);
+alert('Failed to load image.');
+};reader.readAsDataURL(file);
+}
+});async function parseClipboardImageData() {
+const items = await navigator.clipboard.read();for (let item of items) {
+for (let type of item.types) {
+if (type.startsWith("image/")) {
+return item
+.getType(type)
+.then(blob => {
+return new Promise((resolve) => {
+const fileReader = new FileReader();
+fileReader.onload = () => {
+const srcData = fileReader.result;
+resolve(srcData);
+};
+fileReader.readAsDataURL(blob);
+});
+});
+}
+}
+}
+}async function showClipboardImage() {
+try {
+const srcData = await parseClipboardImageData();
+if (srcData) {
+const quantity = parseInt(quantityInput.value);
+const width = parseInt(widthInput.value);
+const height = parseInt(heightInput.value);for (let i = 0; i < quantity; i++) {
+const listItem = document.createElement('li');
+const image = document.createElement('img');
+image.src = srcData;
+image.style.width = `${width - 1}mm`;
+image.style.height = `${height - 1}mm`;
+listItem.appendChild(image);
+preview.appendChild(listItem);
+}
+} else {
+console.error("No image data found on the clipboard");
+// Provide user feedback if needed
+}
+} catch (error) {
+console.error("Error reading clipboard data:", error);
+// Provide user feedback if needed
+}
+}
+// Keyboard Feature// Set the focus to the width input field when the page loads
+window.onload = function() {
+document.getElementById('width').focus();
+};document.addEventListener('keydown', function(event) {
+if (event.key === 'Tab') {
+event.preventDefault(); // prevent the default action
+// get the currently focused element
+var focused = document.activeElement;
+if (focused && focused.id === 'width') {
+document.getElementById('height').focus(); // focus on the height input
+} else if (focused && focused.id === 'height') {
+document.getElementById('width').focus(); // focus on the width input
+}
+}
+});
+document.addEventListener('keydown', function (event) {
+if (event.ctrlKey && event.key === 'v') {
+document.getElementById('paste').click();
+}
+});
+document.addEventListener('keydown', function(event) {
+if (event.key === "Shift" && event.location === 1) { // Check for left Shift
+ document.getElementById('switchButton').click();
+ }
+});// Drag And Drop Feature
+document.getElementById("dropZone").addEventListener("dragover", function(event) {
+event.preventDefault();
+});
+document.getElementById("dropZone").addEventListener("drop", function(event) {
+event.preventDefault(); // Prevent default behaviorvar files = event.dataTransfer.files; // Get the dropped files
+var fileInput = document.getElementById("picture");
+fileInput.files = files; // Set the files to the hidden file input
+});
+// Check if a week has passed since last showing the reminder
+function shouldShowReminder() {
+const lastShowDate = localStorage.getItem("bookmarkReminderLastShow");
+const today = new Date();if (!lastShowDate) {
+return true; // Show reminder if never shown before
+}const lastShowWeek = new Date(lastShowDate).getWeek();
+const currentWeek = today.getWeek();return currentWeek !== lastShowWeek; // Show reminder if it's a different week
+}if (shouldShowReminder()) {
+// Show the reminder element
+document.getElementById("bookmark-reminder").style.display = "block";// Update the last show date in local storage
+localStorage.setItem("bookmarkReminderLastShow", new Date().toISOString());
+}
+
+ 
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<script>
+        document.getElementById('print').addEventListener('click', function() {
+            var element = document.getElementById('preview');
+            var date = new Date();
+            var day = String(date.getDate()).padStart(2, '0');
+            var month = String(date.getMonth() + 1).padStart(2, '0');
+            var year = date.getFullYear();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            var strTime = hours + '_' + minutes + '_' + ampm;
+            var filename = "Sheba_Enterprise_Photo_Print_" + day + "-" + month + "-" + year + "_" + strTime + ".pdf";
+
+            // Customize PDF options for better quality
+            var pdfOptions = {
+                margin: 0.5 , // Adjust margins as needed
+                filename: filename,
+                image: { type: 'jpeg', quality: 1.0 }, // Set image quality (1.0 is highest)
+                html2canvas: { scale: 2 } // Increase scale for better resolution
+            };
+
+            html2pdf().from(element).set(pdfOptions).save();
+        });</script><link rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="floating-container">
+<div class="floating-button" valign="center" id="print" onclick="return window.print(),!1">
+<span class="material-symbols-outlined">Print</span>
+</div>
+<div class="element-container"><a href="https://fb.me/sheba.mb"><span class="float-element tooltip-left"><i
+class="material-icons">favorite</i></span></a><a href="https://wa.me/+8801753225540"><span
+class="float-element"><i class="material-icons">support_agent</i></span></a><a
+href="https://sheba.pages.dev/"><span class="float-element"><i
+class="material-icons">settings_suggest</i></span></a></div>
+</div>
+<button style="display:none;" id="whatsapp">WhatsApp</button>
+<script src="./scripts/features.js"></script></body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://sheba.yn.lt/welcome.js"></script>
+
+
+</head>
+<body>
+    <div id="saveus">
+        <!-- Your contenteditable elements go here -->
+        <!-- Example: -->
+        <p contenteditable="true">1</p>
+        <p contenteditable="true"></p>
+        <p contenteditable="true">3</p>
+        <p contenteditable="true"></p>
+        <p contenteditable="true"></p>
+        <p contenteditable="true">6</p>
+        <p contenteditable="true">7</p>
+        <!-- ... Add more contenteditable elements as needed ... -->
+    </div>
+
+    <button id="saveandshare" onclick="generateJsonContent()">Save & Share</button>
+</body>
+</html>
+
+
+
+ <script type="text/javascript">
+        function generateJsonContent() {
+            const contentEditableElements = document.querySelectorAll('[contenteditable="true"]');
+            const jsonContent = {};
+
+            // Extract values from contenteditable elements
+            contentEditableElements.forEach((element, index) => {
+                const key = (index + 1).toString().padStart(2, '0'); // Two-digit format
+                const value = element.textContent.trim();
+                jsonContent[key] = value;
+            });
+
+            // Retrieve uniqueId (you can replace this with your actual logic)
+            const uniqueId = 'abcdef1234_31-12-2024'; // Example value
+
+            // Extract user and joined values from uniqueId
+            const [user, joined] = uniqueId.split('_');
+
+            // Generate a random shareId (you can customize this logic)
+            const currentTime = new Date().toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+            });
+            const randomShareId = Math.random().toString(36).substr(2, 10);
+            const shareId = `${randomShareId}_${currentTime}`;
+
+            // Construct the final JSON object
+            const finalJson = {
+                UID: [user, joined, shareId],
+                ...jsonContent,
+            };
+
+            console.log(JSON.stringify(finalJson));
+        }
+    </script>

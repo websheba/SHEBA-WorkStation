@@ -1,0 +1,342 @@
+/* Mahi Hot Video  */
+.nuzhat
+{ font-family: 'Tiro Bangla', serif;}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+th.tania {
+  position: relative;
+  z-index: 1;}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+/* Updated color accent for the button */
+input:checked + .slider {
+  background-color: #d50000;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+/* Video Ends */
+
+
+/* CSS For Print Area */
+@media print {
+
+  body * {
+
+	}
+  .printbutton , .postarea , .switch
+	{
+	display:none;
+	}
+}
+/* Page Size A4 */
+@page {
+  margin: 1cm;
+  size: A4; /* Or other page sizes */
+}
+
+
+
+  @import url('https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@500&display=swap');
+
+
+/* Blood Loading Animation */
+
+
+
+.loader {
+  /* Add your preferred loader animation styles here */
+  border: 6px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #CE0000; /* Blue */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+/* Blood Background */
+
+
+body::before {
+/* WATERMARK STARTS */
+  content: "";
+  background-image: url("./LoGo.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 30% 30%;
+  background-attachment: fixed;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; 
+/* WATERMARK ENDS */
+}
+
+
+/*input area design*/
+
+.input_area
+{
+    -webkit-transition: background-color .2s cubic-bezier(0,0,.2,1);
+    transition: background-color .2s cubic-bezier(0,0,.2,1);
+    background-color: #fff;
+    border: 1px solid rgb(218,220,224);
+    border-radius: 8px;
+    margin: 12px 0px;
+
+    padding: 24px;
+    page-break-inside: avoid;
+    word-wrap: break-word;
+    display: block;
+    color: rgb(32,33,36);
+    -webkit-box-direction: normal;
+    font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+}
+
+
+
+
+div.header
+{
+    max-height: 22.5vw;
+    max-width: 90vw;
+    height: 160px;
+    width: 640px;
+
+    background-image: url(https://i.imgur.com/mfFmwu5.gif);
+    background-size: cover;
+    background-position: center;
+
+
+    border: 1px solid rgb(218,220,224);
+    border-radius: 8px;
+    margin-top: 12px;
+
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+
+
+-webkit-print-color-adjust: exact;
+}
+
+
+
+/* Result ID Design*/
+
+table {
+  border-collapse: collapse;
+    vertical-align: bottom;
+    text-align: left;
+  table-layout: fixed;
+  column-gap: 50px; /* Adjust spacing as needed */
+}
+
+table, th, td {
+  border: 0px solid;
+}
+
+#breakup {margin: 12px 34px;}
+.anjuman {
+    display: flex;
+
+    font-family: 'Tiro Bangla', serif;
+    height: 377px;
+    width: 640px;
+    background-image: url(./donor_bg.webp);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-transition: background-color .2s cubic-bezier(0,0,.2,1);
+    transition: background-color .2s cubic-bezier(0,0,.2,1);
+    background-color: #fff;
+    border: 1px solid rgb(218,220,224);
+    border-radius: 8px;
+    margin: 12px 0px;
+    position: fixed;
+    word-wrap: break-word;
+    -webkit-print-color-adjust: exact;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: space-around;
+}
+.result
+{font-family: 'Tiro Bangla', serif;
+    -webkit-transition: background-color .2s cubic-bezier(0,0,.2,1);
+    transition: background-color .2s cubic-bezier(0,0,.2,1);
+    background-color: #fff;
+    border: 1px solid rgb(218,220,224);
+    border-radius: 8px;
+    margin: 12px 0px;
+    position: fixed; /*Position Fixed*/
+    padding: 24px;
+    word-wrap: break-word;
+    -webkit-print-color-adjust: exact;
+}
+
+
+
+/*Blood Title Header1*/
+
+h1.safi
+	{font-family: 'Tiro Bangla', serif;
+	border-radius: 20px;
+	padding: 5px 10px;
+}
+span.safi {
+    font-family: 'Tiro Bangla', serif;
+    background-color: #d50000;
+    border: none;
+    color: white;
+    padding: 8px 11px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 56px;
+    -webkit-print-color-adjust: exact;
+}
+h1{font-family: 'Tiro Bangla', serif;
+  background-color: #d50000; /* Deep red for heading */
+  border: none;
+  color: white;
+  padding: 5px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 8px; 
+  -webkit-print-color-adjust: exact;
+}
+
+
+
+/*Buttons and input field Designs*/
+
+input[type="date"],
+button {
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+button {
+
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #d50000; /* Deep red for button */
+  color: #fff;
+  width: 200px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+/* Additional styling for blood-themed accents */
+input[type="text"]:focus,
+button:hover {
+  border-color: #d50000; /* Highlight with deep red */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+div.body {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+
+
+
+
+
+

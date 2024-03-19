@@ -1,0 +1,161 @@
+<style>
+
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+  border-radius:25px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  border-radius: 15px;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+border-radius: 5px;
+    max-width: 300px;
+  padding: 10px;
+  margin: 2px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=number] {
+  /* width: 100%; */
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+  border-radius:25px;
+}
+.btn_APP
+{
+  background-color: #008655;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+  border-radius:25px;
+}
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+</style>
+
+<button style="display: none;" accesskey="w" class="open-button" onclick="openForm()">Open WhatsApp</button>
+
+<div class="form-popup" id="whatsappForm">
+  <form class="form-container" onsubmit="sendWhatsAppMessage(); return false;">
+    <h2 style="margin-top: auto;">WhatsApp Web</h2>
+
+    <label for="PhoneNumber"><b>Phone Number:</b></label><br/>
+    <input style="width: 60px;" type="text" value="+880" placeholder="+880 (Bangladesh)" name="countrycode" required><input style="width: 240px;" type="number" placeholder="01XXXXXXXXX" name="PhoneNumber" required>
+    <button type="submit" class="btn">Send Message</button>
+    <button type="submit" class="btn_APP">WhatsApp App</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+  </form>
+</div>
+<script>
+  // Function to handle numeric key presses
+  function handleNumericKeyPress(event) {
+    if (event.key >= '0' && event.key <= '9') {
+      const activeElement = document.activeElement;
+      if (activeElement.tagName !== 'INPUT') {
+        openForm();
+      }
+    }
+  }
+
+  document.addEventListener('keydown', handleNumericKeyPress);
+
+  function openForm() {
+    document.getElementById("whatsappForm").style.display = "block";
+    focusPhoneNumberInput();
+  }
+
+  function closeForm() {
+    document.getElementById("whatsappForm").style.display = "none";
+  }
+
+  function focusPhoneNumberInput() {
+    const phoneNumberInput = document.querySelector("input[name='PhoneNumber']");
+    phoneNumberInput.focus();
+  }
+
+  function sendWhatsAppMessage() {
+    const countryCode = document.querySelector("input[name='countrycode']").value;
+    let phoneNumber = document.querySelector("input[name='PhoneNumber']").value;
+    phoneNumber = phoneNumber.replace(/^0+/, "");
+    const whatsappWebLink = `https://web.whatsapp.com/send/?phone=${countryCode}${phoneNumber}&text&type=phone_number&app_absent=0`;
+    window.open(whatsappWebLink, "_blank");
+  }
+
+  function openWhatsAppApp() {
+    const countryCode = document.querySelector("input[name='countrycode']").value;
+    let phoneNumber = document.querySelector("input[name='PhoneNumber']").value;
+    phoneNumber = phoneNumber.replace(/^0+/, "");
+    const whatsappAppLink = `https://wa.me/${countryCode}${phoneNumber}`;
+    window.open(whatsappAppLink, "_blank");
+  }
+
+// Add event listener for clicks on the anchor tag with id="openwhatsapp"
+document.getElementById("openwhatsapp").addEventListener("click", function() {
+  const openButton = document.querySelector(".open-button");
+  openButton.style.display = "block";
+});
+
+
+  const appButton = document.querySelector(".btn_APP"); // Changed the selector to target the WhatsApp App button
+  appButton.addEventListener("click", () => {
+    openWhatsAppApp(); // Call the openWhatsAppApp() function
+  });
+
+  const sendButton = document.querySelector(".btn"); // Added listener for the Send Message button
+  sendButton.addEventListener("click", () => {
+    sendWhatsAppMessage(); // Call the sendWhatsAppMessage() function
+  });
+</script>

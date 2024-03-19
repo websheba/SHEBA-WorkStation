@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+
+/* Google's Oswald font for tokens */
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h2 {
+    color: #666;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+#tokens, #info, #sequence {
+    font-family: 'Oswald', sans-serif;
+    list-style-type: none;
+}
+
+/* Print Styles */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #print, #print * {
+        visibility: visible;
+    }
+    #print {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<h2>Utility Bill SMS Parser</h2>
+
+<textarea id="sms" rows="4" cols="50" placeholder="Paste your SMS here..."></textarea>
+
+<button onclick="parseSMS()">Parse SMS</button>
+<br/>
+<button id="print" type="submit">Save to Print 🖨️</button>
+<div id="print">
+
+    <h2>Your Tokens:</h2>
+    <ul id="tokens"></ul>
+
+    <h2>Consumer info:</h2>
+    <ul id="info"></ul>
+
+    <h2>Sequence Number:</h2>
+    <ul id="sequence"></ul>
+</div>
+
+<script>
+function parseSMS() {
+    var sms = document.getElementById("sms").value;
+    var tokens = sms.match(/(\d{4}-\d{4}-\d{4}-\d{4}-\d{4},?)+/g);
+    var sequence = sms.match(/SquNo:([\d=]+)/);
+    var meterNo = sms.match(/Meter No:(\d+)/);
+    var vendingAmt = sms.match(/Vending Amt:(\d+\.\d+)/);
+    var enrgCost = sms.match(/Enrg Cost: (\d+\.\d+)/);
+    var totalCharge = sms.match(/Total Charge:(\d+\.\d+)/);
+    var demandCharge = sms.match(/Demand Charge:(\d+)/);
+    var meterRent = sms.match(/Meter Rent 1P:(\d+)/);
+    var rebate = sms.match(/Rebate:(-\d+\.\d+)/);
+    var vat = sms.match(/VAT:(\d+\.\d+)/);
+
+    // Remove any trailing commas
+    var tokensString = tokens[0].replace(/,$/, "");
+
+    // Split the tokens string into an array of tokens
+    var tokenArray = tokensString.split(',');
+
+    // Map each token to an <li> element
+    document.getElementById("tokens").innerHTML = tokenArray.map(token => "<li>" + token + "</li>").join("");
+
+    document.getElementById("info").innerHTML = `
+        <li><b>Meter No: </b>${meterNo ? meterNo[1] : 'N/A'}</li>
+        <li><b>Vending Amt:</b> ${vendingAmt ? vendingAmt[1] : 'N/A'}</li>
+        <li><b>Enrg Cost: </b>${enrgCost ? enrgCost[1] : 'N/A'}</li>
+        <li><b>Total Charge:</b> ${totalCharge ? totalCharge[1] : 'N/A'}</li>
+        <li><b>Demand Charge: </b>${demandCharge ? demandCharge[1] : 'N/A'}</li>
+        <li><b>Meter Rent:</b> ${meterRent ? meterRent[1] : 'N/A'}</li>
+        <li><b>Rebate:</b> ${rebate ? rebate[1] : 'N/A'}</li>
+        <li><b>VAT:</b> ${vat ? vat[1] : 'N/A'}</li>
+    `;
+
+    document.getElementById("sequence").innerHTML = `<li><b>Sequence Number:</b> ${sequence ? sequence[1] : 'N/A'}`;
+}
+</script>
+<footer style="text-align: center; padding: 20px; background-color: #f2f2f2;">
+    <p>© 2024 সেবা এন্টারপ্রাইজ. All rights reserved.</p>
+    <p>Special Thanks to : <a href="https://sheba.pages.dev">অনলাইন সেবাসমূহ</a></p>
+</footer>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<script>
+        document.getElementById('print').addEventListener('click', function() {
+            var element = document.getElementById('preview');
+            var date = new Date();
+            var day = String(date.getDate()).padStart(2, '0');
+            var month = String(date.getMonth() + 1).padStart(2, '0');
+            var year = date.getFullYear();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            var strTime = hours + '_' + minutes + '_' + ampm;
+            var filename = "Sheba_Enterprise_Meter_Code_Print_" + day + "-" + month + "-" + year + "_" + strTime + ".pdf";
+
+            // Customize PDF options for better quality
+            var pdfOptions = {
+                margin: 0.5 , // Adjust margins as needed
+                filename: filename,
+                image: { type: 'jpeg', quality: 1.0 }, // Set image quality (1.0 is highest)
+                html2canvas: { scale: 2 } // Increase scale for better resolution
+            };
+
+            html2pdf().from(element).set(pdfOptions).save();
+        });</script>
+
+
+</body>
+</html>
